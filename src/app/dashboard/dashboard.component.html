@@ -1,0 +1,52 @@
+<div class="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-indigo-100 flex items-center justify-center p-6">
+    <div class="bg-white shadow-2xl rounded-lg p-8 w-full max-w-lg">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Welcome, {{ username }}!</h2>
+  
+      <div class="mb-6">
+        <form [formGroup]="movieForm" (ngSubmit)="onAddMovie()" class="flex flex-col items-center">
+          <input
+            formControlName="title"
+            placeholder="Favourite Movie Name"
+            class="border border-gray-300 rounded-full p-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 text-center shadow-md transition"
+          />
+          <button
+            type="submit"
+            [disabled]="movieForm.invalid"
+            class="mt-6 bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full hover:from-purple-600 hover:to-blue-600 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition shadow-lg"
+          >
+            Add
+          </button>
+        </form>
+      </div>
+  
+      <div *ngIf="movies.length > 0" class="mt-8">
+        <table class="min-w-full bg-white border border-gray-200 shadow-sm rounded-lg overflow-hidden">
+          <thead class="bg-indigo-600 text-white">
+            <tr>
+              <th class="px-6 py-3 text-left">Movie Name</th>
+              <th class="px-6 py-3 text-center">Delete</th> <!-- İşlem sütununu ortaladık -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let movie of movies; let i = index"
+              class="hover:bg-gray-100 border-b border-gray-200"
+            >
+              <td class="px-6 py-4">{{ movie.title }}</td>
+              <td class="px-6 py-4 text-center">
+                <button (click)="onDeleteMovie(movie)" class="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition">
+                  Sil
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+      </div>
+  
+      <div *ngIf="movies.length === 0" class="text-gray-500 mt-4 text-center">
+        You haven't added your favorite movie yet.
+      </div>
+    </div>
+  </div>
+  
